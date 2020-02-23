@@ -1,0 +1,24 @@
+#submit{
+    padding: 1em;
+}
+
+.image{
+    width: 90%;
+    margin: .5em;
+}
+
+.padding{
+    padding: 1em;
+}
+
+.h-full{
+    min-height: 70vh;
+}
+
+.form-group>input{
+    margin: 1em;
+}
+
+.title{
+    margin: 1em;
+}

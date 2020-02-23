@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signature Verification</title>
+    <link rel="stylesheet" href={{ url_for('static',filename='document/font-awesome-4.7.0/css/font-awesome.min.css') }}>
+    <link rel="stylesheet" href={{ url_for('static',filename='document/bootstrap-4.3.1-dist/css/bootstrap.min.css') }}>
+    <link rel="stylesheet" href={{ url_for('static',filename='document/style.css') }}>
+    <script href={{ url_for('static',filename='document/bootstrap-4.3.1-dist/jquery-3.4.1.min.js') }} ></script>
+    <script href={{ url_for('static',filename='document/bootstrap-4.3.1-dist/js/bootstrap.min.js') }} ></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Siamese</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/upload">Verify Signature</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/add">Add Signature</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container d-flex justify-content-center align-items-center flex-column h-full">
+        <h1 class="text-center title">Verify Signature</h1>
+        {% if data.original == "" %}
+            <form id="submit" action="/uploader" method="POST" enctype="multipart/form-data">
+              <input type="file" name="file" accept=".jpg,.jpeg,.png" required>
+              <input type="submit" class="btn btn-secondary" value="Upload">
+          </form>
+        {% endif %}
+
+      <div class="container d-flex justify-content-center flex-column">
+          <div class="container f-flex justify-content-center">
+            <div class="row">
+                <div class="col-lg-6 col-12 d-flex justify-content-center align-items-center flex-column">
+                    {% if data.original != "" %}
+                        <img class="image" src={{ data.original }}>
+                        <form action="/extract" method="POST">
+                            <input type="submit"  class="btn btn-secondary" value="Extract">
+                        </form>
+                    {% endif %}
+                 </div>
+
+
+              <div class="col-lg-6 col-12 d-flex justify-content-center align-items-center flex-column">
+                  {% if data.extraction != "" %}
+                    <img class="image" src={{ data.extraction }}>
+                    <form action="/verify" method="POST">
+                        <input type="submit"  class="btn btn-secondary" value="Verify">
+                    </form>
+                    {% endif %}
+              </div>
+            </div>
+        </div>
+          <div class="container d-flex align-items-center justify-content-center padding">
+              {% if data.result != "" %}
+                <h1 class="text-center">Result : {{ data.result }} Similarity : {{ data.loss }}%</h1>
+            {% endif %}
+          </div>
+      </div>
+    </div>
+</body>
+</html>
